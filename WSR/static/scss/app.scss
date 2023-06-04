@@ -1,0 +1,83 @@
+@use "sass:map";
+
+// Fonts
+@import "fonts";
+
+// Font-Awesome
+@import "../fontawesome-6.4.0/css/all.css";
+
+// scss-docs-start import-stack
+// Configuration
+@import "../bootstrap-5.3.0/functions";
+@import "../bootstrap-5.3.0/variables";
+@import "../bootstrap-5.3.0/variables-dark";
+@import "../bootstrap-5.3.0/maps";
+@import "../bootstrap-5.3.0/mixins";
+@import "../bootstrap-5.3.0/utilities";
+
+// Layout & components
+@import "../bootstrap-5.3.0/root";
+@import "../bootstrap-5.3.0/reboot";
+@import "../bootstrap-5.3.0/type";
+@import "../bootstrap-5.3.0/images";
+@import "../bootstrap-5.3.0/containers";
+@import "../bootstrap-5.3.0/grid";
+@import "../bootstrap-5.3.0/tables";
+@import "../bootstrap-5.3.0/badge";
+@import "../bootstrap-5.3.0/popover";
+
+// Helpers
+@import "../bootstrap-5.3.0/helpers";
+
+// Utilities
+@import "../bootstrap-5.3.0/utilities/api";
+// scss-docs-end import-stack
+
+
+// NOTE: Pas de responsive, trop long à faire. Il faut avoir un écran pc. Ma ref est 1920x1080.
+
+
+// Variables
+$black: #000000;
+$dark-gray: #323232;
+$light-gray: #989898;
+$white: #FFFFFF;
+$red: #D41010;
+
+body {
+  padding-top: 64px;
+  background-color: $black;
+  font-family: "OPTIAlpine-EightySeven", sans-serif;
+}
+
+@import "components";
+
+// Layout
+
+// Utils
+.eurostile {
+  font-family: "Eurostile MN", sans-serif;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+// Other
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.logo {
+  display: block;
+  width: 197px;
+  height: 64px;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+}

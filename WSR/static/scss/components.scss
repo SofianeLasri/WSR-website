@@ -1,0 +1,223 @@
+@use "sass:map";
+@use "sass:color";
+
+.navbar {
+  display: flex;
+  width: 100%;
+  margin-top: 24px;
+  background-color: $dark-gray;
+  text-transform: uppercase;
+
+  .link {
+    cursor: pointer;
+    text-decoration: none;
+    padding: 3px 12px 7px;
+    color: $light-gray;
+    font-size: 16px;
+
+    &.active, &:hover {
+      background-color: $red;
+      color: $white;
+    }
+  }
+}
+
+.vitrine {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: row;
+  gap: map-get($spacers, 3);
+  text-transform: uppercase;
+
+  .main-frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px;
+    background-color: $red;
+    color: $white;
+    flex-grow: 1;
+
+    .mid {
+      font-size: 24px;
+    }
+
+    .large {
+      font-size: 64px;
+    }
+
+    .detail {
+      .title {
+        font-size: 20px;
+      }
+
+      .score {
+        margin-top: 6px;
+        font-size: 16px;
+      }
+
+      > *:not(:last-child) {
+        margin-bottom: map-get($spacers, 3);
+      }
+    }
+  }
+
+  .seconds-frames {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: map-get($spacers, 3);
+
+    .second-frame {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      background-image: url("https://cdn.builder.io/api/v1/image/assets%2FTEMP%2Fb35a0e22a955470e977bdc214911fc7a");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 220px;
+      width: 404px;
+
+      .header {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        padding: 16px;
+        flex-grow: 1;
+
+        .pos {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          border-radius: 24px;
+          background-color: rgba($red, .8);
+          width: 48px;
+          height: 48px;
+          color: $white;
+          text-transform: uppercase;
+
+          &.second {
+            color: $black;
+            background-color: rgba($white, .8);
+          }
+        }
+      }
+
+      .event-type {
+        width: 100%;
+        background-color: rgba($red, .8);
+        color: $white;
+        font-size: 12px;
+        padding: 2px 8px;
+      }
+
+      .event-desc {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 8px;
+        background-color: rgba($white, 0.8);
+
+        .event-meta-info {
+          font-size: .75rem;
+        }
+      }
+    }
+  }
+}
+
+.page-content {
+  margin-top: 64px;
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .title {
+      color: $light-gray;
+    }
+
+    .link {
+      width: 100%;
+      align-items: flex-start;
+      margin-top: 8px;
+      padding: 6px 16px;
+      background-color: $dark-gray;
+      color: $light-gray;
+      cursor: pointer;
+      text-decoration: none;
+      text-transform: uppercase;
+
+      &.active, &:hover {
+        background-color: $red;
+        color: $white;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px;
+    background-color: $white;
+
+    .news-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: map-get($spacers, 3);
+    }
+  }
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  width: 332px;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: stretch;
+    align-items: center;
+    background-color: $black;
+    height: 212px;
+
+    .logo img {
+      filter: brightness(0.6);
+    }
+  }
+
+  .desc {
+    color: $dark-gray;
+    font-size: .9rem;
+  }
+}
+
+.btn {
+  padding: 6px 16px;
+  background-color: $red;
+  color: $white;
+  text-decoration: none;
+}
+
+footer {
+  font-size: .9rem;
+  margin-top: 64px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-top: 4px solid $dark-gray;
+  color: $light-gray;
+
+  a {
+    color: $red;
+    text-decoration: none;
+  }
+}
