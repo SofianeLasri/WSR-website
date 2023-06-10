@@ -2,72 +2,74 @@ import datetime
 
 from django.db import models
 
-class Saison(models.Model):
-    nom = models.CharField(max_length=100)
-    annee = models.PositiveIntegerField(verbose_name="Année")
+class Season(models.Model):
+    name = models.CharField(max_length=100)
+    year = models.PositiveIntegerField(verbose_name="Year")
 
     def __str__(self):
-        return self.nom
+        return self.name
 
 
-class Pilote(models.Model):
-    nom = models.CharField(max_length=100)
-    vehicule = models.ForeignKey('Vehicule', on_delete=models.CASCADE, verbose_name="Véhicule")
-
-    def __str__(self):
-        return self.nom
-
-
-class Vehicule(models.Model):
-    marque = models.CharField(max_length=100)
-    modele = models.CharField(max_length=100, verbose_name="Modèle")
-    annee_fabrication = models.PositiveIntegerField(verbose_name="Année de fabrication")
+class Driver(models.Model):
+    name = models.CharField(max_length=100)
+    vehicle = models.ForeignKey('Vehicle', on_delete=models.CASCADE, verbose_name="Vehicle")
 
     def __str__(self):
-        return f"{self.marque} {self.modele}"
+        return self.name
 
 
-class Course(models.Model):
-    class TypeCourse(models.TextChoices):
+class Vehicle(models.Model):
+    brand = models.CharField(max_length=100)
+    model = models.CharField(max_length=100, verbose_name="Model")
+    fabrication_year = models.PositiveIntegerField(verbose_name="Fabrication Year")
+
+    def __str__(self):
+        return f"{self.brand} {self.model}"
+
+
+class Race(models.Model):
+    class RaceType(models.TextChoices):
         INVITATION = "invitation"
-        CHAMPIONNAT = "championnat"
-        COURSE_SIMPLE = "course_simple"
+        CHAMPIONSHIP = "championship"
+        SINGLE_RACE = "single_race"
 
-    nom = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     circuit = models.CharField(max_length=100)
-    saison = models.ForeignKey(Saison, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='course_images', verbose_name="Image d'illustration")
-    type = models.CharField(max_length=100, choices=TypeCourse.choices, default=TypeCourse.COURSE_SIMPLE)
+    finishing_position = models.PositiveIntegerField(verbose_name="Finishing Position")
+    season = models.ForeignKey(Season, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='race_images', verbose_name="Illustration Image")
+    type = models.CharField(max_length=100, choices=RaceType.choices, default=RaceType.SINGLE_RACE)
     date = models.DateField(default=datetime.date.today)
 
     def __str__(self):
-        return self.nom
+        return self.name
 
 
 class Article(models.Model):
-    titre = models.CharField(max_length=100)
-    contenu = models.TextField()
-    date_publication = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    publication_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.titre
+        return self.title
 
 
-class Resultat(models.Model):
-    pilote = models.ForeignKey(Pilote, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    position_arrivee = models.PositiveIntegerField(verbose_name="Position à l'arrivée")
-    position_depart = models.PositiveIntegerField(verbose_name="Position de départ")
+class Result(models.Model):
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    race = models.ForeignKey(Race, on_delete=models.CASCADE)
+    finishing_position = models.PositiveIntegerField(verbose_name="Finishing Position")
+    starting_position = models.PositiveIntegerField(verbose_name="Starting Position")
     score = models.IntegerField()
 
     def __str__(self):
-        return f"{self.pilote} - {self.course}"
+        return f"{self.driver} - {self.race}"
 
 
 class Participation(models.Model):
-    saison = models.ForeignKey(Saison, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    pilotes = models.ManyToManyField(Pilote)
+    season = models.ForeignKey(Season, on_delete=models.CASCADE)
+    race = models.ForeignKey(Race, on_delete=models.CASCADE)
+    drivers = models.ManyToManyField(Driver)
 
     def __str__(self):
-        return f"{self.saison} - {self.course}"
+        return f"{self.season} - {self.race}"
+

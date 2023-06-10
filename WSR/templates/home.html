@@ -26,43 +26,52 @@
 <div class="container vitrine">
     <div class="main-frame eurostile">
         <div>
-            <div class="mid">SAISON 4</div>
-            <div class="large">Chicago</div>
-            <div class="mid">La boucle</div>
+            <div class="mid">{{ last_race_details.season_name }}</div>
+            <div class="large">{{ last_race_details.race.circuit }}</div>
+            <div class="mid">{{ last_race_details.race.name }}</div>
         </div>
         <div class="detail">
-            <div>
-                <div class="title">Billy Rosewood</div>
-                <div class="score">2ème position <br>13 500 PTS</div>
-            </div>
-            <div>
-                <div class="title">John Carter</div>
-                <div class="score">4ème position <br>7 500 PTS</div>
-            </div>
+            {% for stat in last_race_details.results %}
+                <div>
+                    <div class="title">{{ stat.driver_name }}</div>
+                    <div class="score">{{ stat.pos_string }} position <br>{{ stat.score }} PTS</div>
+                </div>
+            {% endfor %}
         </div>
-        <div class="mid">WSR Admis en finale</div>
+        {% if last_race_details.race.finishing_position < 5 %}
+            <div class="mid">WSR Admis en finale</div>
+        {% else %}
+            <div class="mid">WSR recalé</div>
+        {% endif %}
     </div>
     <div class="seconds-frames">
-        <div class="second-frame">
-            <div class="header">
-                <div class="pos">1er</div>
+        {% for race in second_frame_races %}
+            <div class="second-frame">
+                <div class="header">
+                    {% if race.finishing_position == 1 %}
+                        <div class="pos">{{ race.pos_string }}</div>
+                    {% else %}
+                        <div class="pos second">{{ race.pos_string }}</div>
+                    {% endif %}
+                </div>
+                {% if race.type == 'invitation' %}
+                    <div class="event-type"><i class="fa-solid fa-envelope"></i> Invitation évènement</div>
+                {% elif race.type == 'championship' %}
+                    <div class="event-type"><i class="fa-solid fa-flag-checkered"></i> Championnat</div>
+                {% else %}
+                    <div class="event-type"><i class="fa-solid fa-flag-checkered"></i> Course simple</div>
+                {% endif %}
+
+                <div class="event-desc">
+                    <div class="eurostile w-75">{{ race.name }}</div>
+                    {% if race.type == 'invitation' %}
+                        <div class="event-meta-info">{{ race.circuit }}</div>
+                    {% else %}
+                        <div class="event-meta-info">3 manches</div>
+                    {% endif %}
+                </div>
             </div>
-            <div class="event-type"><i class="fa-solid fa-envelope"></i> Invitation évènement</div>
-            <div class="event-desc">
-                <div class="eurostile w-75">Rockstar Energy Race Series</div>
-                <div class="event-meta-info">Pacific Way</div>
-            </div>
-        </div>
-        <div class="second-frame">
-            <div class="header">
-                <div class="pos second">2ème</div>
-            </div>
-            <div class="event-type"><i class="fa-solid fa-flag-checkered"></i> championnat</div>
-            <div class="event-desc">
-                <div class="eurostile w-75">Séries de courses etnies</div>
-                <div class="event-meta-info">3 manches</div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 
@@ -189,7 +198,8 @@
             </div>
         </div>
         <div class="col">
-            <p>Copyright 2023 - World Series Racing ou “WSR” est une marque déposée par Codemasters. <br>Ceci est un projet
+            <p>Copyright 2023 - World Series Racing ou “WSR” est une marque déposée par Codemasters. <br>Ceci est un
+                projet
                 à titre scolaire.</p>
         </div>
         <div class="col"></div>
