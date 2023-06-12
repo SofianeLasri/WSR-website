@@ -32,6 +32,11 @@ class Race(models.Model):
         INVITATION = "invitation"
         CHAMPIONSHIP = "championship"
         SINGLE_RACE = "single_race"
+        FACE_TO_FACE = "face_to_face"
+        OVERTAKING = "overtaking"
+        AGAINST_TIME = "against_time"
+        ELIMINATION = "elimination"
+        ENDURANCE = "endurance"
 
     name = models.CharField(max_length=100)
     circuit = models.CharField(max_length=100)

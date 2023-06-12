@@ -33,7 +33,7 @@ def home(request):
     six_last_articles = Article.objects.order_by('-publication_date')[:6]
 
     for article in six_last_articles:
-        article.summary = ' '.join(article.content.split()[:14])
+        article.summary = ' '.join(article.content.split()[:14]) + '...'
 
     three_last_races_results = []
 
