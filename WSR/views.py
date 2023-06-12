@@ -86,3 +86,18 @@ def home(request):
             "three_last_races_results": three_last_races_results
         }
     )
+
+
+def view_article(request, id):
+    article = Article.objects.get(id)
+    return None
+
+
+def races_types(request):
+    return None
+
+def vehicles(request):
+    return None
+
+def seasons(request):
+    return None

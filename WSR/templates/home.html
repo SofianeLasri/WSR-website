@@ -1,40 +1,13 @@
+{% extends 'base.html' %}
 {% load static %}
-{% load compress %}
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>World Series Racing</title>
-    {% compress css %}
-        <link type="text/x-scss" href="{% static 'scss/app.scss' %}" rel="stylesheet" media="screen">
-    {% endcompress %}
-</head>
-<body>
-<header class="container">
-    <a class="logo" href="/">
-        <img src="{% static 'images/WSR.png' %}" alt="Logo WSR">
-    </a>
-    <nav class="navbar">
-        <a class="link active" href="/">Page d’accueil</a>
-        <a class="link" href="#">Épreuves</a>
-        <a class="link" href="#">nos Véhicules</a>
-        <a class="link" href="#">Anciennes saisons</a>
-    </nav>
-</header>
-
+{% block content %}
 <div class="container vitrine">
     <div class="main-frame eurostile">
         <div>
-            {% if race.participation_type == 'invitation' %}
-                <div class="mid">{{ last_race_details.season_name }}</div>
-                <div class="large">{{ last_race_details.race.type_string }} {{ last_race_details.race.name }}</div>
-                <div class="mid">{{ last_race_details.race.location }}, {{ last_race_details.race.circuit }}</div>
-            {% else %}
-                <div class="mid">{{ last_race_details.season_name }}</div>
-                <div class="large">{{ last_race_details.race.location }}</div>
-                <div class="mid">{{ last_race_details.race.circuit }}</div>
-            {% endif %}
+            <div class="mid">{{ last_race_details.season_name }}</div>
+            <div class="large">{{ last_race_details.race.location }}</div>
+            <div class="mid">{{ last_race_details.race.circuit }}</div>
         </div>
         <div class="detail">
             {% for stat in last_race_details.results %}
@@ -84,51 +57,132 @@
     <div class="d-flex">
         <div class="menu flex-grow-1">
             <h4 class="eurostile title">Menu</h4>
-            <a class="link active" href="#">Actualité WSR</a>
-            <a class="link" href="#">Résultats des courses</a>
-            <a class="link" href="#">Participations</a>
+            <a class="link active" href="#" id="news" data-type="changePageContent">Actualité WSR</a>
+            <a class="link" href="#" id="racesResults" data-type="changePageContent">Résultats des courses</a>
+            <a class="link" href="#" id="calendar" data-type="changePageContent">Calendrier</a>
         </div>
-        <div class="content">
-            <h4 class="eurostile title">Actualité WSR</h4>
+        <div class="content" id="pageContent">
+            <div id="newsContainer">
+                <h4 class="eurostile title">Actualité WSR</h4>
 
-            <div class="news-cards">
-                {% for article in six_last_articles %}
-                    <div class="news-card">
-                        <div class="header">
-                            <div class="logo">
-                                <img src="{% static 'images/WSR.png' %}" alt="Logo WSR">
+                <div class="news-cards">
+                    {% for article in six_last_articles %}
+                        <div class="news-card">
+                            <div class="header">
+                                <div class="logo">
+                                    <img src="{% static 'images/WSR.png' %}" alt="Logo WSR">
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="eurostile">{{ article.title }}</div>
+                                <div class="desc">{{ article.summary }}</div>
                             </div>
                         </div>
-                        <div class="mt-3">
-                            <div class="eurostile">{{ article.title }}</div>
-                            <div class="desc">{{ article.summary }}</div>
-                        </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
+                <div class="d-flex justify-content-end">
+                    <a class="btn" href="#">Voir tout</a>
+                </div>
             </div>
-            <div class="d-flex justify-content-end">
-                <a class="btn" href="#">Voir tout</a>
+            <div id="racesResultsContainer" style="display: none;">
+                <h4 class="eurostile title">Résultat des courses</h4>
+                {% for race in three_last_races_results %}
+                    <h5>Saison {{ race.race.season_id }} - {{ race.race.location }}, {{ race.race.circuit }}</h5>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Position de départ</th>
+                            <th scope="col">Position d'arrivée</th>
+                            <th scope="col">Score</th>
+                            <th scope="col">Pilote</th>
+                            <th scope="col">Véhicule</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for result in race.results %}
+                            <tr>
+                                <th>{{ result.starting_position }}</th>
+                                <th scope="row">{{ result.finishing_position }}</th>
+                                <td>{{ result.score }}</td>
+                                <td>{{ result.driver_name }}</td>
+                                <td>{{ result.vehicle_brand }} {{ result.vehicle_model }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endfor %}
+                <div class="d-flex justify-content-end">
+                    <a class="btn" href="#">Voir tout</a>
+                </div>
+            </div>
+            <div id="calendarContainer" style="display: none;">
+                <h4 class="eurostile title">Calendrier des courses</h4>
+                <p>Nous sommes désolés, mais cet onglet n'est pas encore opérationnel.</p>
             </div>
         </div>
     </div>
 </div>
-<footer class="container">
-    <div class="row">
-        <div class="col">
-            <div class="logo">
-                <img src="{% static 'images/WSR.png' %}" alt="Logo WSR">
-            </div>
-        </div>
-        <div class="col">
-            <p>Copyright 2023 - World Series Racing ou “WSR” est une marque déposée par Codemasters. <br>Ceci est un
-                projet
-                à titre scolaire.</p>
-        </div>
-        <div class="col"></div>
-        <div class="col">
-            <p>Juin 2023 - Sofiane LASRI-TRIENPONT<br><a href="/admin">Connexion à l'administration</a></p>
-        </div>
-    </div>
-</footer>
-</body>
-</html>
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+    const links = document.querySelectorAll("[data-type='changePageContent']");
+    const containers = {};
+
+    function hideAllContainers() {
+        for (var container in containers) {
+            containers[container].style.display = 'none';
+        }
+    }
+
+    function showContainer(container) {
+        hideAllContainers();
+        container.style.display = 'block';
+    }
+
+    function setActiveLink(link) {
+        for (var i = 0; i < links.length; i++) {
+            links[i].classList.remove('active');
+        }
+        link.classList.add('active');
+    }
+
+    function getUrlParameter(name) {
+        name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    links.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            setActiveLink(link);
+
+            var linkId = link.getAttribute('id');
+            var containerId = linkId + 'Container';
+            var container = document.getElementById(containerId);
+            if (container) {
+                showContainer(container);
+                history.replaceState(null, null, '?content=' + linkId);
+            }
+        });
+    });
+
+    links.forEach(function (link) {
+        const linkId = link.getAttribute('id');
+        const containerId = linkId + 'Container';
+        const container = document.getElementById(containerId);
+        if (container) {
+            containers[containerId] = container;
+        }
+    });
+
+    const contentParam = getUrlParameter('content');
+    if (contentParam !== '') {
+        const targetLink = document.getElementById(contentParam);
+        if (targetLink) {
+            targetLink.click();
+        }
+    }
+</script>
+{% endblock %}

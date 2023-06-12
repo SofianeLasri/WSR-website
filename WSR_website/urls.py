@@ -23,7 +23,11 @@ from WSR import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home)
+    path('', views.home, name="home"),
+    path('article/<int:id>', views.view_article, name="article"),
+    path('races-types', views.races_types, name="races_types"),
+    path('vehicles', views.vehicles, name="vehicles"),
+    path('seasons', views.seasons, name="seasons")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
