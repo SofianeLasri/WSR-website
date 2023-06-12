@@ -29,7 +29,6 @@ class Vehicle(models.Model):
 
 class Race(models.Model):
     class RaceType(models.TextChoices):
-        INVITATION = "invitation"
         CHAMPIONSHIP = "championship"
         SINGLE_RACE = "single_race"
         FACE_TO_FACE = "face_to_face"
@@ -37,13 +36,24 @@ class Race(models.Model):
         AGAINST_TIME = "against_time"
         ELIMINATION = "elimination"
         ENDURANCE = "endurance"
+        TOUGE = "touge"
 
-    name = models.CharField(max_length=100)
+    class RaceParticipationType(models.TextChoices):
+        INVITATION = "invitation"
+        PARTICIPATION = "participation"
+
+    location = models.CharField(max_length=100)
     circuit = models.CharField(max_length=100)
     finishing_position = models.PositiveIntegerField(verbose_name="Finishing Position")
     season = models.ForeignKey(Season, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='race_images', verbose_name="Illustration Image")
     type = models.CharField(max_length=100, choices=RaceType.choices, default=RaceType.SINGLE_RACE)
+    participation_type = models.CharField(
+        max_length=100,
+        choices=RaceParticipationType.choices,
+        default=RaceParticipationType.PARTICIPATION
+    )
+    name = models.CharField(max_length=100, default=None, blank=True, null=True)
     date = models.DateField(default=datetime.date.today)
 
     def __str__(self):

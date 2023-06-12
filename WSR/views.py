@@ -27,7 +27,28 @@ def home(request):
 
     for race in three_last_races[1:3]:
         pos_string = "1er" if race.finishing_position == 1 else str(race.finishing_position) + "ème"
+        type_string = ""
+
+        match race.type:
+            case 'championship':
+                type_string = "Championnat"
+            case 'single_race':
+                type_string = "Course simple"
+            case 'face_to_face':
+                type_string = "Face à face"
+            case 'overtaking':
+                type_string = "Dépassements"
+            case 'against_time':
+                type_string = "Contre-la-montre"
+            case 'elimination':
+                type_string = "Elimination"
+            case 'endurance':
+                type_string = "Endurance"
+            case 'touge':
+                type_string = "Touge"
+
         race.pos_string = pos_string
+        race.type_string = type_string
         second_frame_races.append(race)
 
     six_last_articles = Article.objects.order_by('-publication_date')[:6]

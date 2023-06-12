@@ -26,9 +26,15 @@
 <div class="container vitrine">
     <div class="main-frame eurostile">
         <div>
-            <div class="mid">{{ last_race_details.season_name }}</div>
-            <div class="large">{{ last_race_details.race.circuit }}</div>
-            <div class="mid">{{ last_race_details.race.name }}</div>
+            {% if race.participation_type == 'invitation' %}
+                <div class="mid">{{ last_race_details.season_name }}</div>
+                <div class="large">{{ last_race_details.race.type_string }} {{ last_race_details.race.name }}</div>
+                <div class="mid">{{ last_race_details.race.location }}, {{ last_race_details.race.circuit }}</div>
+            {% else %}
+                <div class="mid">{{ last_race_details.season_name }}</div>
+                <div class="large">{{ last_race_details.race.location }}</div>
+                <div class="mid">{{ last_race_details.race.circuit }}</div>
+            {% endif %}
         </div>
         <div class="detail">
             {% for stat in last_race_details.results %}
@@ -54,29 +60,18 @@
                         <div class="pos second">{{ race.pos_string }}</div>
                     {% endif %}
                 </div>
-                {% if race.type == 'invitation' %}
+                {% if race.participation_type == 'invitation' %}
                     <div class="event-type"><i class="fa-solid fa-envelope"></i> Invitation évènement</div>
-                {% elif race.type == 'championship' %}
-                    <div class="event-type"><i class="fa-solid fa-flag-checkered"></i> Championnat</div>
-                {% elif race.type == 'face_to_face' %}
-                    <div class="event-type"><i class="fa-solid fa-user"></i> Face à face</div>
-                {% elif race.type == 'overtaking' %}
-                    <div class="event-type"><i class="fa-solid fa-user"></i> Dépasssements</div>
-                {% elif race.type == 'against_time' %}
-                    <div class="event-type"><i class="fa-solid fa-timer"></i> Course contre-la-montre</div>
-                {% elif race.type == 'elimination' %}
-                    <div class="event-type"><i class="fa-solid fa-ranking-star"></i> Eliminations</div>
-                {% elif race.type == 'endurance' %}
-                    <div class="event-type"><i class="fa-solid fa-timer"></i> Endurance</div>
                 {% else %}
-                    <div class="event-type"><i class="fa-solid fa-flag-checkered"></i> Course simple</div>
+                    <div class="event-type"><i class="fa-solid fa-flag-checkered"></i> Participation</div>
                 {% endif %}
 
                 <div class="event-desc">
-                    <div class="eurostile w-75">{{ race.name }}</div>
-                    {% if race.type == 'championship' %}
-                        <div class="event-meta-info">3 manches</div>
+                    {% if race.participation_type == 'invitation' %}
+                        <div class="eurostile w-75">{{ race.type_string }}<br>{{ race.name }}</div>
+                        <div class="event-meta-info">{{ race.location }}, {{ race.circuit }}</div>
                     {% else %}
+                        <div class="eurostile w-75">{{ race.type_string }}<br>{{ race.location }}</div>
                         <div class="event-meta-info">{{ race.circuit }}</div>
                     {% endif %}
                 </div>
