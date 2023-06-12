@@ -37,13 +37,48 @@ class Race(models.Model):
         ELIMINATION = "elimination"
         ENDURANCE = "endurance"
         TOUGE = "touge"
+        CHECKPOINT = "checkpoint"
+        DRIFT = "drift"
 
     class RaceParticipationType(models.TextChoices):
         INVITATION = "invitation"
         PARTICIPATION = "participation"
 
-    location = models.CharField(max_length=100)
-    circuit = models.CharField(max_length=100)
+    class Locations(models.TextChoices):
+        CALIFORIA = "Californie"
+        CHICAGO = "Chicago"
+        MIAMI = "Miami"
+        PARIS = "Paris"
+        BARCELONA = "Barcelone"
+        COT = "Côte d'Azur"
+        HONG_KONG= "Hong Kong"
+        OKUTAMA = "Okutama"
+        DUBAI = "Dubaï"
+
+    class Circuits(models.TextChoices):
+        PACIFIC_WAY = "Pacfic Way"
+        MARINA_CITY = "Marina City"
+        ART_DECO = "Boucle Art Deco"
+        OCEAN_DRIVE = "Ocean Drive"
+        LAKE_SHORE_POINT = "Lake Shore Point"
+        TROCADERO = "Le Trocadéro"
+        FONTAINE = "Boucle de la fontaine"
+        CORNICHE = "Route de la corniche"
+        COLOMBE_BAY = "Baie de colombe"
+        CHAMPS_ELYSEES = "Champs Elysées"
+        VILLEFRANCHE = "Villefranche-sur-mer"
+        LIVEROUTES = "Liveroutes"
+        TURBIE = "La turbie"
+        AP_LEI_CHAU = "Ap Lei Chau"
+        TORRIS = "Route des Toriis"
+        POK_FU_LAM = "Pok Fu Lam"
+        SAKURA = "Col Sakura"
+        ORRA_LOOP = "Boucle du quai Orra"
+        HATTAN_WAY = "Voie Hattan"
+        NAKHEEL = "Belvédère de Nakheel"
+
+    location = models.CharField(max_length=100, choices=Locations.choices)
+    circuit = models.CharField(max_length=100, choices=Circuits.choices)
     finishing_position = models.PositiveIntegerField(verbose_name="Finishing Position")
     season = models.ForeignKey(Season, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='race_images', verbose_name="Illustration Image")
@@ -53,11 +88,11 @@ class Race(models.Model):
         choices=RaceParticipationType.choices,
         default=RaceParticipationType.PARTICIPATION
     )
-    name = models.CharField(max_length=100, default=None, blank=True, null=True)
+    name = models.CharField(max_length=100, default="", blank=True)
     date = models.DateField(default=datetime.date.today)
 
     def __str__(self):
-        return self.name
+        return self.participation_type + ' | ' + self.type + ' ' + self.name + ' - ' + self.location + ', ' + self.circuit
 
 
 class Article(models.Model):

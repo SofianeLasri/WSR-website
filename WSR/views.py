@@ -46,6 +46,10 @@ def home(request):
                 type_string = "Endurance"
             case 'touge':
                 type_string = "Touge"
+            case 'checkpoint':
+                type_string = "Checkpoints"
+            case 'drift':
+                type_string = "Drift"
 
         race.pos_string = pos_string
         race.type_string = type_string
