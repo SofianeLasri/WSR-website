@@ -267,3 +267,39 @@ footer {
     }
   }
 }
+
+.race-types-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: map-get($spacers, 3);
+
+  .card {
+    width: auto;
+
+    .header {
+      margin-bottom: map-get($spacers, 2);
+      width: 100%;
+
+      img {
+        width: inherit;
+      }
+    }
+
+    .content {
+      .title {
+        display: flex;
+        align-items: center;
+        gap: map-get($spacers, 1);
+        color: $black;
+        font-size: 1.4rem;
+
+        img {
+          filter: brightness(0);
+        }
+      }
+      .desc {
+        color: $dark-gray;
+      }
+    }
+  }
+}

@@ -6,3 +6,4 @@ Il est nécessaire d'avoir python > 3.10, ainsi que les paquets suivants :
 - Pillow
 - django-compressor
 - django-libsass
+- markdown

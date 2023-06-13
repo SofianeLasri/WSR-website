@@ -43,10 +43,10 @@
 
                 <div class="event-desc">
                     {% if race.participation_type == 'invitation' %}
-                        <div class="eurostile w-75">{{ race.type_string }}<br>{{ race.name }}</div>
+                        <div class="eurostile w-75">{{ race.type }}<br>{{ race.name }}</div>
                         <div class="event-meta-info">{{ race.location }}, {{ race.circuit }}</div>
                     {% else %}
-                        <div class="eurostile w-75">{{ race.type_string }}<br>{{ race.location }}</div>
+                        <div class="eurostile w-75">{{ race.type }}<br>{{ race.location }}</div>
                         <div class="event-meta-info">{{ race.circuit }}</div>
                     {% endif %}
                 </div>
