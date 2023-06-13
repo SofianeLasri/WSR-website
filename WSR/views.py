@@ -65,8 +65,16 @@ def home(request):
 
 
 def view_article(request, id):
-    article = Article.objects.get(id)
-    return None
+    article = Article.objects.get(id=id)
+    md = markdown.Markdown()
+    article.content = md.convert(article.content)
+    return render(
+        request,
+        'article.html',
+        {
+            "article": article
+        }
+    )
 
 
 def races_types(request):

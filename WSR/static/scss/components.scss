@@ -180,6 +180,12 @@
   display: flex;
   flex-direction: column;
   width: 332px;
+  text-decoration: none;
+  color: $black;
+
+  &:hover {
+    color: $red;
+  }
 
   .header {
     display: flex;
@@ -215,11 +221,6 @@ footer {
   padding-bottom: 24px;
   border-top: 4px solid $dark-gray;
   color: $light-gray;
-
-  a {
-    color: $red;
-    text-decoration: none;
-  }
 }
 
 .cars-showcase {

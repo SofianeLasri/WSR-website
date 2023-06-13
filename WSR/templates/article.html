@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}WSR - {{ article.title }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="p-4 bg-white article-container">
+            <h4>{{ article.title }}</h4>
+            <div class="meta">
+                <span>Publié par </span><a href="#">WSR CM</a> le {{ article.publication_date|date:"d/m/Y" }}
+            </div>
+
+            <div class="article-content">
+                {% autoescape off %}
+                    {{ article.content }}
+                {% endautoescape %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

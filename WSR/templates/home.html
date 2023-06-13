@@ -69,7 +69,7 @@
 
                 <div class="news-cards">
                     {% for article in six_last_articles %}
-                        <div class="news-card">
+                        <a class="news-card" href="{% url 'article' id=article.id %}">
                             <div class="header">
                                 <div class="logo">
                                     <img src="{% static 'images/WSR.png' %}" alt="Logo WSR">
@@ -79,7 +79,7 @@
                                 <div class="eurostile">{{ article.title }}</div>
                                 <div class="desc">{{ article.summary }}</div>
                             </div>
-                        </div>
+                        </a>
                     {% endfor %}
                 </div>
                 <div class="d-flex justify-content-end">
