@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}WSR - Véhicules{% endblock %}
+
+{% block content %}
+    <style>
+    body {
+        background-image: url("{% static 'images/garage_1_dalle.jpg' %}");
+        background-size: cover;
+        background-position-x: center;
+        /* Pas bien, mais est-ce pire que de voir les artefacts de DALL-E ? */
+        background-position-y: -545px;
+        background-repeat: no-repeat;
+    }
+    </style>
+    <div class="container mt-4">
+        <div class="p-4 bg-white">
+            <h4 class="eurostile title text-danger">Nos véhicules</h4>
+            <p>En compétition, avoir un bon véhicule est essentiel pour gagner. Nous prenons un soin tout particulier à
+                choisir des partenaires de courses idéals pour nos pilotes.
+                <br>Chaque voiture est minutieusement préparée et réglée aux besoins des pilotes.</p>
+        </div>
+
+        <div class="p-4 mt-4 bg-blurry-trans-black cars-showcase">
+            {% for vehicle in vehicles %}
+                <div class="card">
+                    <div class="header">
+                        <img src="{% get_media_prefix %}{{ vehicle.image }}" alt="{{ vehicle.brand }} {{ vehicle.model }}">
+                    </div>
+                    <div class="content">
+                        <div class="title eurostile">{{ vehicle.brand }}</div>
+                        <div class="desc text-uppercase">{{ vehicle.model }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

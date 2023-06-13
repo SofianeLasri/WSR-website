@@ -97,7 +97,14 @@ def races_types(request):
     return None
 
 def vehicles(request):
-    return None
+    vehicles = Vehicle.objects.all()
+    return render(
+        request,
+        'vehicles.html',
+        {
+            'vehicles': vehicles
+        }
+    )
 
 def seasons(request):
     return None

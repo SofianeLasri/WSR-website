@@ -6,7 +6,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>World Series Racing</title>
+    <title>{% block title %}{% endblock %}</title>
     {% compress css %}
         <link type="text/x-scss" href="{% static 'scss/app.scss' %}" rel="stylesheet" media="screen">
     {% endcompress %}
@@ -26,25 +26,27 @@
 
 {% block content %}{% endblock %}
 
-<footer class="container">
-    <div class="row">
-        <div class="col">
-            <div class="logo">
-                <img src="{% static 'images/WSR.png' %}" alt="Logo WSR">
+<footer class="container-fluid bg-blurry-trans-black">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="logo">
+                    <img src="{% static 'images/WSR.png' %}" alt="Logo WSR">
+                </div>
             </div>
-        </div>
-        <div class="col">
-            <p>Copyright 2023 - World Series Racing ou “WSR” est une marque déposée par Codemasters. <br>Ceci est un
-                projet
-                à titre scolaire.</p>
-        </div>
-        <div class="col">
-            <a href="https://www.codemasters.com/" target="_blank">
-                <img src="{% static 'images/codemastersracing.png' %}" alt="Logo Codemasters" width="128">
-            </a>
-        </div>
-        <div class="col">
-            <p>Juin 2023 - Sofiane LASRI-TRIENPONT<br><a href="/admin">Connexion à l'administration</a></p>
+            <div class="col">
+                <p>Copyright 2023 - World Series Racing ou “WSR” est une marque déposée par Codemasters. <br>Ceci est un
+                    projet
+                    à titre scolaire.</p>
+            </div>
+            <div class="col">
+                <a href="https://www.codemasters.com/" target="_blank">
+                    <img src="{% static 'images/codemastersracing.png' %}" alt="Logo Codemasters" width="128">
+                </a>
+            </div>
+            <div class="col">
+                <p>Juin 2023 - Sofiane LASRI-TRIENPONT<br><a href="/admin">Connexion à l'administration</a></p>
+            </div>
         </div>
     </div>
 </footer>

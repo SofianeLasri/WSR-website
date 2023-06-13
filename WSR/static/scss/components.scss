@@ -23,7 +23,7 @@
 }
 
 .vitrine {
-  margin-top: 32px;
+  margin-top: map-get($spacers, 4);
   display: flex;
   flex-direction: row;
   gap: map-get($spacers, 3);
@@ -219,5 +219,51 @@ footer {
   a {
     color: $red;
     text-decoration: none;
+  }
+}
+
+.cars-showcase {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: map-get($spacers, 3);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(152, 152, 152, 0.25);
+    backdrop-filter: blur(16px)
+  }
+
+  .card {
+    width: auto;
+
+    .header {
+      margin-bottom: map-get($spacers, 2);
+      border: $white 2px solid;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+      }
+    }
+
+    .content {
+      .title {
+        color: $white;
+        font-size: 1.4rem;
+      }
+      .desc {
+        color: $light-gray;
+        line-height: 1;
+        font-size: 0.9rem;
+      }
+    }
   }
 }
