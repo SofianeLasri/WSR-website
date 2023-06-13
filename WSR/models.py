@@ -34,6 +34,7 @@ class RaceType(models.Model):
     description = models.TextField(default="", blank=True)
     icon = models.ImageField(upload_to='racetypes', default="", blank=True, verbose_name="Logo d'illustration")
     image = models.ImageField(upload_to='racetypes', default="", blank=True, verbose_name="Image d'illustration")
+    video = models.FileField(upload_to='racetypes', default="", blank=True, verbose_name="Vidéo de démonstration")
 
     def __str__(self):
         return self.name

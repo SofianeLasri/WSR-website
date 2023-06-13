@@ -11,8 +11,8 @@
 
             <div class="race-types-container">
                 {% for epreuve in epreuves %}
-                    <div class="card">
-                        <div class="header">
+                    <div class="card" id="type-{{ epreuve.id }}">
+                        <div class="header" data-video-url="{% get_media_prefix %}{{ epreuve.video }}">
                             <img src="{% get_media_prefix %}{{ epreuve.image }}" alt="{{ epreuve.name }}">
                         </div>
                         <div class="content">
@@ -31,4 +31,49 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        // Sélectionne tous les éléments de classe 'card' dont l'ID commence par 'type-'
+        const cards = document.querySelectorAll('.card[id^="type-"]');
+
+        cards.forEach((card) => {
+            let timeoutId;
+            let originalContent;
+
+            card.addEventListener('mouseenter', () => {
+                const header = card.querySelector('.header');
+                const videoUrl = header.dataset.videoUrl;
+
+                if (videoUrl && !header.querySelector('video')) {
+                    timeoutId = setTimeout(() => {
+                        const video = document.createElement('video');
+                        video.src = videoUrl;
+                        video.controls = false;
+                        video.autoplay = true;
+                        video.muted = true;
+                        video.loop = true;
+
+                        // Sauvegarde le contenu d'origine du header pour pouvoir le restaurer plus tard
+                        originalContent = header.innerHTML;
+
+                        header.innerHTML = '';
+                        header.appendChild(video);
+                    }, 1000);
+                }
+            });
+
+            card.addEventListener('mouseleave', () => {
+                clearTimeout(timeoutId);
+
+                const header = card.querySelector('.header');
+                const video = header.querySelector('video');
+
+                if (video) {
+                    // Supprime la vidéo et réaffiche l'image d'origine
+                    header.innerHTML = originalContent;
+                }
+            });
+        });
+    </script>
 {% endblock %}
