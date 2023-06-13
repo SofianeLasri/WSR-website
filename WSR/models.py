@@ -27,20 +27,17 @@ class Vehicle(models.Model):
     def __str__(self):
         return f"{self.brand} {self.model}"
 
+class RaceType(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(default="", blank=True)
+    font_awesome_icon = models.CharField(max_length=64, default="", blank=True)
+    image = models.ImageField(upload_to='racetypes', default="", blank=True, verbose_name="Image d'illustration")
+
+    def __str__(self):
+        return self.name
+
 
 class Race(models.Model):
-    class RaceType(models.TextChoices):
-        CHAMPIONSHIP = "championship"
-        SINGLE_RACE = "single_race"
-        FACE_TO_FACE = "face_to_face"
-        OVERTAKING = "overtaking"
-        AGAINST_TIME = "against_time"
-        ELIMINATION = "elimination"
-        ENDURANCE = "endurance"
-        TOUGE = "touge"
-        CHECKPOINT = "checkpoint"
-        DRIFT = "drift"
-
     class RaceParticipationType(models.TextChoices):
         INVITATION = "invitation"
         PARTICIPATION = "participation"
@@ -85,7 +82,7 @@ class Race(models.Model):
     finishing_position = models.PositiveIntegerField(verbose_name="Position d'arrivée")
     season = models.ForeignKey(Season, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='race_images', verbose_name="Image d'illustration")
-    type = models.CharField(max_length=100, choices=RaceType.choices, default=RaceType.SINGLE_RACE)
+    type = models.ForeignKey(RaceType, on_delete=models.CASCADE)
     participation_type = models.CharField(
         max_length=100,
         choices=RaceParticipationType.choices,
