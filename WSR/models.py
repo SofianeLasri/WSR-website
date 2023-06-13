@@ -2,6 +2,7 @@ import datetime
 
 from django.db import models
 
+
 class Season(models.Model):
     name = models.CharField(max_length=100)
     year = models.PositiveIntegerField(verbose_name="Year")
@@ -27,10 +28,11 @@ class Vehicle(models.Model):
     def __str__(self):
         return f"{self.brand} {self.model}"
 
+
 class RaceType(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(default="", blank=True)
-    font_awesome_icon = models.CharField(max_length=64, default="", blank=True)
+    icon = models.ImageField(upload_to='racetypes', default="", blank=True, verbose_name="Logo d'illustration")
     image = models.ImageField(upload_to='racetypes', default="", blank=True, verbose_name="Image d'illustration")
 
     def __str__(self):
@@ -49,7 +51,7 @@ class Race(models.Model):
         PARIS = "Paris"
         BARCELONA = "Barcelone"
         COT = "Côte d'Azur"
-        HONG_KONG= "Hong Kong"
+        HONG_KONG = "Hong Kong"
         OKUTAMA = "Okutama"
         DUBAI = "Dubaï"
         YAS_MARINA = "Yas Marina"
@@ -92,7 +94,11 @@ class Race(models.Model):
     date = models.DateField(default=datetime.date.today)
 
     def __str__(self):
-        return self.participation_type + ' | ' + self.type + ' ' + self.name + ' - ' + self.location + ', ' + self.circuit
+        race_type = RaceType.objects.get(name=self.type)
+        return (
+            f"{self.participation_type} | {race_type.name} {self.name} - "
+            f"{self.location}, {self.circuit}"
+        )
 
 
 class Article(models.Model):
@@ -113,4 +119,3 @@ class Result(models.Model):
 
     def __str__(self):
         return f"{self.driver} - {self.race}"
-
