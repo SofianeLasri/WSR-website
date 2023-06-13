@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
     path('article/<int:id>', views.view_article, name="article"),
+    path('articles', views.articles, name="articles"),
     path('races-types', views.races_types, name="races_types"),
     path('vehicles', views.vehicles, name="vehicles"),
     path('seasons', views.seasons, name="seasons")

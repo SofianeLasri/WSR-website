@@ -64,6 +64,20 @@ def home(request):
     )
 
 
+def articles(request):
+    articles = Article.objects.order_by('-publication_date').all()
+    for article in articles:
+        article.summary = ' '.join(article.content.split()[:14]) + '...'
+
+    return render(
+        request,
+        'articles.html',
+        {
+            "articles": articles
+        }
+    )
+
+
 def view_article(request, id):
     article = Article.objects.get(id=id)
     md = markdown.Markdown()
