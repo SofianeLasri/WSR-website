@@ -1,0 +1,6 @@
+Django>=4.2.5
+Markdown>=3.4.4
+Pillow>=8.3.2
+django-compressor>=2.4
+django-libsass>=0.8
+markdown>=3.4.4
